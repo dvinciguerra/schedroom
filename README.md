@@ -1,11 +1,13 @@
-# README
+# Schedroom - Simple webapp to schedule a meeting room
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![Project Wireframe Image](https://raw.githubusercontent.com/dvinciguerra/schedroom/master/home-screen.jpeg)
+
+This project is a simple implementation for a POC using Rails web framework as a monolitic base and ReactJS
+as frontend solution to provide a very simple app to schedule meeting rooms.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version +2.4
 
 * System dependencies
 
