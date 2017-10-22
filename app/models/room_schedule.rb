@@ -1,0 +1,2 @@
+class RoomSchedule < ApplicationRecord
+end
