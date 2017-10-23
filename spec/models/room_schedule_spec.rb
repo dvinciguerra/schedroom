@@ -3,16 +3,23 @@ require 'rails_helper'
 RSpec.describe RoomSchedule, type: :model do
 
 	let(:current_user) do
-		create :usrer
+		create :user
 	end
 
 	let(:room) do
 		create :room
 	end
 
+	let(:monday) do
+		dt = Date.today
+		Date.commercial(dt.year, dt.cweek, 1)
+	end
+
 	before do
-		create_list :room_schedule, 5, user: current_user, room: room, starts_at: (Date.today - 10).strftime('%Y-%m-%d 10:00:00')
-		create_list :room_schedule, 5, user: current_user, room: room, starts_at: Date.today.strftime('%Y-%m-%d 12:00:00')
+		create :room_schedule, user: current_user, room: room, starts_at: (Date.today - 10).strftime('%Y-%m-%d 10:00:00')
+		(0..4).each do |num|  
+			create :room_schedule, user: current_user, room: room, starts_at: (monday + num).strftime('%Y-%m-%d 12:00:00')
+		end
 	end
 
 	it 'returns only five dates' do

@@ -1,3 +1,5 @@
+require 'schedroom/date.rb'
+
 module ApplicationHelper
   # show page title component
   def page_title(title)

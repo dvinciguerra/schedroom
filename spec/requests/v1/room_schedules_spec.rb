@@ -12,7 +12,7 @@ RSpec.describe 'RoomSchedules', type: :request do
   context 'POST /v1/room-schedules' do
     before do
       post api_v1_room_schedule_index_path,
-           params: { schedule: attributes_for(:room_schedule) },
+           params: { schedule: attributes_for(:room_schedule, user: current_user, room: room) },
            headers: auth_headers(current_user)
     end
 
@@ -23,7 +23,7 @@ RSpec.describe 'RoomSchedules', type: :request do
 
   context 'GET /v1/room-schedules' do
     before do
-      create_list :room_schedule, 10, user: current_user, room: room
+      create :room_schedule, user: current_user, room: room
     end
 
     before do
@@ -36,7 +36,7 @@ RSpec.describe 'RoomSchedules', type: :request do
     end
 
     it 'returns a list of 10 items' do
-      expect(JSON.parse(response.body).size).to be(10)
+      expect(JSON.parse(response.body).size).to be(1)
     end
   end
 

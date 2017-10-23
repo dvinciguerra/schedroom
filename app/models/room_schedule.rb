@@ -13,7 +13,7 @@ class RoomSchedule < ApplicationRecord
 
 	def self.find_by_week(week = nil)
 		days = Schedroom::Date.days_of_week(week || Date.today.cweek)
-		where(starts_at: days.first..days.last)
+		where('starts_at BETWEEN ? AND ?', days.first.to_datetime, (days.last + 1).to_datetime)
 	end
 
 
