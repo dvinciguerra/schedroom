@@ -83,3 +83,4 @@ production:
   database: schedroom_production
   username: schedroom
   password: <%= ENV['SCHEDROOM_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
