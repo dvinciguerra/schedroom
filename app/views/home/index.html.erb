@@ -1,2 +1,51 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<!-- navbar -->
+<%= render partial: 'partial/navbar' %>
+
+<!-- application home -->
+<section id="home-section">
+	<div class="container">
+
+		<!-- render page title -->
+		<%= page_title 'Reservar Sala'%>
+
+		<div class="row">
+			<div class="col-md-12">
+
+				<table class="table table-bordered schedule_table">
+					<thead>
+						<tr>
+							<th>Horários</th>
+							<% %w[Segunda Terça Quarta Quinta Sexta].each do |week_day| %>
+								<th><%= week_day %></th>
+							<% end %>
+						</tr>
+					</thead>
+
+					<tbody>
+						<% (6..23).each do |hour| %>
+						<tr>
+							<td><%= sprintf("%0d:00", hour) %></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<!-- action button -->
+<%= render partial: 'partial/action_button' %>
+
+<!-- action button -->
+<%= render partial: 'partial/footer' %>
+

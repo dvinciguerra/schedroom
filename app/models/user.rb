@@ -16,6 +16,9 @@ class User < ApplicationRecord
   validates :password,
             presence: true, length: { in: 4..20 }
 
+	# relationships
+	has_many :room_schedules
+
 	# build a full name using first and last name
 	def name
 		self.first_name + " " + self.last_name

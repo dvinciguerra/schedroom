@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Schedroom</title>
+    <title>Schedroom - Simple meeting room schedule app</title>
     <%= csrf_meta_tags %>
 
+		<!-- stylesheets -->
     <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
   <body>
     <%= yield %>
+
+		<!-- scripts -->
+    <%= javascript_include_tag 'application' %>
+		<%= javascript_pack_tag 	 'application' %>
   </body>
 </html>
