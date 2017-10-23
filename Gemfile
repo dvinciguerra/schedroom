@@ -28,6 +28,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'sprockets-rails'
+gem 'coffee-rails'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'webpacker'

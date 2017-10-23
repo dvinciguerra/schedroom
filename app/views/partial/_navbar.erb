@@ -16,11 +16,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							<%= image_tag 'https://www.gravatar.com/avatar/1fb6cf1869fd18b454f379814da98d90?s=30', class: 'thumbnail-sm img-circle' %>
-							&nbsp; Olá, Daniel Vinciguerra <span class="caret"></span>
+							<%= image_tag 'https://www.gravatar.com/avatar/1fb6cf1869fd18b454f379814da98daa?s=30&d=mm', id: 'user-avatar', class: 'thumbnail-sm img-circle' %>
+							&nbsp; Olá, <span id="user-name">You Name</span> <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Sair</a></li>
+							<li><a href="#" class="js-auth-signout">Sair</a></li>
 						</ul>
 					</li>
 				</ul>

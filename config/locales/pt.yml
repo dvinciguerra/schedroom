@@ -216,3 +216,10 @@ pt:
       default: "%a, %d de %B de %Y, %H:%M:%S %z"
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
+
+  home:
+    schedule:
+      hours: Horários
+    buttons:
+      add_schedule: Reservar Sala
+      remove_schedule: Remover Reserva

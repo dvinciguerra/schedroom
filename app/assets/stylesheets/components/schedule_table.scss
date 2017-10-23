@@ -1,12 +1,35 @@
 
 .schedule-table {
 	color: $color-darkgray;
+	text-align: center;
 
 	thead {
 		text-align: center;
 	}
 
-	> th {
+	th {
 		text-align: center;
+	}
+}
+
+.schedule-reserved {
+	background-color: #6AB7AA;
+	a {
+		color: #ffffff !important;
+		font-weight: 500;
+		text-align: center;
+	}
+}
+
+.js-add-schedule {
+	a {
+		color: #cccccc;
+		font-size: 14px;
+		font-weight: 500;
+		text-decoration: none;
+
+		&:hover {
+			color: #444444;
+		}
 	}
 }
