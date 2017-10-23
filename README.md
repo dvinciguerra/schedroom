@@ -1,6 +1,7 @@
 # Schedroom - Simple webapp to schedule a meeting room
+[![Maintainability](https://api.codeclimate.com/v1/badges/6dc94836da43fe9d431f/maintainability)](https://codeclimate.com/github/dvinciguerra/schedroom/maintainability)
 
-![Project Wireframe Image](https://raw.githubusercontent.com/dvinciguerra/schedroom/master/home-screen.jpeg)
+![Schedroom](https://raw.githubusercontent.com/dvinciguerra/schedroom/master/home-screen.png)
 
 This project is a simple implementation for a POC using Rails web framework as a monolitic base and ReactJS
 as frontend solution to provide a very simple app to schedule meeting rooms.
