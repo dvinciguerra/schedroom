@@ -9,5 +9,7 @@ class CreateRoomSchedules < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+		add_index :room_schedules, [:starts_at], unique: true
   end
 end
