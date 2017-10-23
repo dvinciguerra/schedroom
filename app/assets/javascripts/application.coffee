@@ -1,6 +1,8 @@
 #= require jquery
 #= require bootstrap-sprockets
 #= require rails-ujs
+#= require_tree .
+
 
 
 String::capitalize = ->
@@ -25,7 +27,9 @@ $ ->
 	catch e
 		console.error e
 
-#= require_tree .
+	($ document.body)
+		.find '[data-toggle="tooltip"]'
+		.tooltip()
 
 # model base class
 class ModelBase
@@ -65,15 +69,24 @@ class App.ScheduleModel extends ModelBase
 
 	@all: ->
 		return App.Request
-			url: "#{App.config.api_base}/user-profile"
+			url: "#{App.config.api_base}/room-schedules"
 			method: 'GET'
 			type: 'json'
 			headers: ModelBase.authHeader()
 			dataType: 'json'
 
+	@create: (params) ->
+		return App.Request
+			url: "#{App.config.api_base}/room-schedules"
+			method: 'POST'
+			type: 'json'
+			data: params
+			headers: ModelBase.authHeader()
+			dataType: 'json'
+
 	@load: (id) ->
 		return App.Request
-			url: "#{App.config.api_base}/user-profile/#{id}"
+			url: "#{App.config.api_base}/room-schedule/#{id}"
 			method: 'GET'
 			type: 'json'
 			headers: ModelBase.authHeader()
@@ -81,7 +94,7 @@ class App.ScheduleModel extends ModelBase
 
 	@delete: (id) ->
 		return App.Request
-			url: "#{App.config.api_base}/user-profile"
+			url: "#{App.config.api_base}/room-schedule/#{id}"
 			method: 'DELETE'
 			type: 'json'
 			headers: ModelBase.authHeader()
@@ -118,24 +131,43 @@ class App.ScheduleTable extends ComponentBase
 		false
 
 	scheduleRoom: (e) ->
-		console.log e
+		$target = ($ e.currentTarget)
 		return false unless confirm 'Confirmar este horário para utilizar sala?'
 
-		scheduleModel = App.ScheduleModel.all()
+		console.log params =
+			schedule:
+				ends_at: $target.data 'ends_at'
+				starts_at: $target.data 'starts_at'
+
+		scheduleModel = App.ScheduleModel.create(params)
 		
 		scheduleModel.done (json) =>
 			console.log json
+			@collections.schedules.push json
+			@renderScheduleRedserved $target, json
 
 		scheduleModel.error (json) =>
-			console.log json
+			alert 'Não foi possível agendar este horário'
 
 		false
+
+	renderScheduleRedserved: ($target, model = {}) ->
+		$target
+			.removeClass 'js-add-schedule'
+			.addClass 'schedule-reserved'
+
+		return $target.html """
+			<img src="#{model.user.profile_image}" class="schedule-avatar img-circle" height="30">
+			&nbsp;<strong data-toggle="tooltip" data-placement="top" title="Horário reservado para #{model.user.name}">Reservado</strong>
+		"""
 
 	loadSchedules: ->
 		scheduleModel = App.ScheduleModel.all()
 		
 		scheduleModel.done (json) =>
-			console.log json
+			console.log @collections.schedules = json
+			for item in json
+				@renderScheduleRedserved ($ "td[data-starts_at='#{item.starts_at}']"), item
 
 		scheduleModel.error (json) =>
 			console.log json

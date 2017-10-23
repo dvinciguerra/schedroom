@@ -2,7 +2,7 @@ class RoomSchedule < ApplicationRecord
 
 	# validations
 	validates :starts_at,
-		presence: true
+		presence: true, uniqueness: true
 
 	validates :ends_at,
 		presence: true

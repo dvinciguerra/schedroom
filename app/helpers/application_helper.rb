@@ -13,8 +13,11 @@ module ApplicationHelper
     Schedroom::Date.days_of_week(week)
   end
 
-  def number_to_hours(value)
-    raise unless (6..23).cover? value
-		format('%s:00', value.to_s.rjust(2, '0'))
+  def number_to_hours(value = 0)
+    format '%s:00', value.to_s.rjust(2, '0')
   end
+
+	def datetime_at_presenter(day, hour)
+		day.strftime('%Y-%m-%dT') << number_to_hours(hour) << ":00.000Z"
+	end
 end

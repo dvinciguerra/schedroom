@@ -3,22 +3,21 @@
 	color: $color-darkgray;
 	text-align: center;
 
-	thead {
+	th {
 		text-align: center;
 	}
 
-	th {
-		text-align: center;
+	td {
+		cursor: pointer;
 	}
 }
 
 .schedule-reserved {
+	cursor: pointer;
+	color: #ffffff !important;
 	background-color: #6AB7AA;
-	a {
-		color: #ffffff !important;
-		font-weight: 500;
-		text-align: center;
-	}
+	font-weight: 500;
+	text-align: center;
 }
 
 .js-add-schedule {

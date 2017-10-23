@@ -13,7 +13,7 @@
 				<tr>
 					<td><%= number_to_hours(num) %></td>
 					<% days_of_week(Date.today.cweek).each do |week_day| %>
-						<td class="js-add-schedule" data-hour="<%= number_to_hours(num) %>" data-date="<%= week_day.strftime('%Y-%m-%d ') << number_to_hours(num) << ":00" %>">
+						<td class="js-add-schedule" data-hour="<%= number_to_hours(num) %>" data-starts_at="<%= datetime_at_presenter(week_day, num) %>" data-ends_at="<%= datetime_at_presenter(week_day, num + 1) %>">
 							<a href="#">Agendar horário</a>
 						</td>
 					<% end %>

@@ -34,11 +34,9 @@ class API::V1::RoomScheduleController < API::V1::BaseController
   private
 
   def set_schedule
-    begin
-		@schedule = RoomSchedule.find(params[:id])
-		rescue ActiveRecord::RecordNotFound
-			render json: {message: 'resource_not_found'}, status: 404
-		end
+    @schedule = RoomSchedule.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'resource_not_found' }, status: 404
   end
 
   def schedule_params
