@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
 	# frontend (web interface)
   root to: 'home#index'
+  get 'auth/signin'
+
 end
