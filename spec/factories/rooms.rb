@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :room do
-    name "MyString"
-    description "MyString"
-    location "MyString"
+		name Faker::Lorem.sentence
+		description Faker::Lorem.sentence
+		location Faker::Lorem.sentence
   end
 end
