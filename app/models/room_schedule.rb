@@ -11,6 +11,10 @@ class RoomSchedule < ApplicationRecord
 	belongs_to :user
 	belongs_to :room
 
-	has_one :user
-	has_one :room
+	def self.find_by_week(week = nil)
+		days = Schedroom::Date.days_of_week(week || Date.today.cweek)
+		where(starts_at: days.first..days.last)
+	end
+
+
 end

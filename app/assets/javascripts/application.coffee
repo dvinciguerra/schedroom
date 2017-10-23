@@ -51,22 +51,42 @@ class App.UserModel extends ModelBase
 			headers: ModelBase.authHeader()
 			dataType: 'json'
 
-# user model class
+	@cached: ->
+		JSON.parse (localStorage.getItem 'user')
+
+# schedule model class
 class App.ScheduleModel extends ModelBase
 	attributes:
-		user: 0
-		room: ''
+		user_id: 0
+		room_id: 0
 		description: ''
-		started_at: ''
+		starts_at: ''
 		ends_at: ''
 
-	@load: ->
+	@all: ->
 		return App.Request
 			url: "#{App.config.api_base}/user-profile"
 			method: 'GET'
 			type: 'json'
 			headers: ModelBase.authHeader()
 			dataType: 'json'
+
+	@load: (id) ->
+		return App.Request
+			url: "#{App.config.api_base}/user-profile/#{id}"
+			method: 'GET'
+			type: 'json'
+			headers: ModelBase.authHeader()
+			dataType: 'json'
+
+	@delete: (id) ->
+		return App.Request
+			url: "#{App.config.api_base}/user-profile"
+			method: 'DELETE'
+			type: 'json'
+			headers: ModelBase.authHeader()
+			dataType: 'json'
+
 
 # base class for components
 class ComponentBase
@@ -84,13 +104,52 @@ class ComponentBase
 
 # schedule table component
 class App.ScheduleTable extends ComponentBase
-	el: ($ 'section#home-section')
+	el: ($ 'table#schedule-table')
 
 	collections:
 		schedules: []
 
 	bind: ->
+		@loadSchedules()
+
+		@el.on 'click', '.js-add-schedule', (e) =>
+			@scheduleRoom(e)
+
 		false
+
+	scheduleRoom: (e) ->
+		console.log e
+		return false unless confirm 'Confirmar este horário para utilizar sala?'
+
+		scheduleModel = App.ScheduleModel.all()
+		
+		scheduleModel.done (json) =>
+			console.log json
+
+		scheduleModel.error (json) =>
+			console.log json
+
+		false
+
+	loadSchedules: ->
+		scheduleModel = App.ScheduleModel.all()
+		
+		scheduleModel.done (json) =>
+			console.log json
+
+		scheduleModel.error (json) =>
+			console.log json
+
+		false
+
+	scheduleParams: ->
+		user = App.UserModel.cached()
+		params =
+			user_id: user
+
+
+
+
 
 class App.UserNavbar extends ComponentBase
 	el: ($ 'nav')
@@ -112,6 +171,8 @@ class App.UserNavbar extends ComponentBase
 		userModel = App.UserModel.load()
 		
 		userModel.done (json) =>
+			localStorage.setItem 'user', JSON.stringify json
+
 			@el.find '#user-avatar'
 				.attr 'src', json.profile_image
 				.attr 'height', '30px'
