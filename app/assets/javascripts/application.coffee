@@ -4,9 +4,8 @@
 #= require_tree .
 
 
-
 String::capitalize = ->
-	"#{this[0].toUpperCase()}#{this.substr 1}";
+	"#{this[0].toUpperCase()}#{this.substr 1}"
 
 @App = window.App || {}
 
@@ -86,7 +85,7 @@ class App.ScheduleModel extends ModelBase
 
 	@load: (id) ->
 		return App.Request
-			url: "#{App.config.api_base}/room-schedule/#{id}"
+			url: "#{App.config.api_base}/room-schedules/#{id}"
 			method: 'GET'
 			type: 'json'
 			headers: ModelBase.authHeader()
@@ -94,7 +93,7 @@ class App.ScheduleModel extends ModelBase
 
 	@delete: (id) ->
 		return App.Request
-			url: "#{App.config.api_base}/room-schedule/#{id}"
+			url: "#{App.config.api_base}/room-schedules/#{id}"
 			method: 'DELETE'
 			type: 'json'
 			headers: ModelBase.authHeader()
@@ -128,7 +127,28 @@ class App.ScheduleTable extends ComponentBase
 		@el.on 'click', '.js-add-schedule', (e) =>
 			@scheduleRoom(e)
 
+		@el.on 'click', '.schedule-reserved', (e) =>
+			@removeSchedule(e)
+
 		false
+
+	removeSchedule: (e) ->
+		$target = ($ e.currentTarget)
+		return false unless confirm 'Tem certeza que deseja remover este agendamento?'
+
+		id = $target.attr 'data-id'
+		scheduleModel = App.ScheduleModel.delete(id)
+		
+		scheduleModel.done (json) =>
+			@renderScheduleRoom $target
+
+		scheduleModel.error (xhr, type, status) =>
+			switch xhr.status
+				when 405 then (alert 'Não é possível remover reservas de outros usuários.')
+				else (alert 'Não foi possível agendar este horário')
+
+		false
+
 
 	scheduleRoom: (e) ->
 		$target = ($ e.currentTarget)
@@ -142,19 +162,30 @@ class App.ScheduleTable extends ComponentBase
 		scheduleModel = App.ScheduleModel.create(params)
 		
 		scheduleModel.done (json) =>
-			console.log json
 			@collections.schedules.push json
-			@renderScheduleRedserved $target, json
+			@renderScheduleReserved $target, json
 
 		scheduleModel.error (json) =>
 			alert 'Não foi possível agendar este horário'
 
 		false
 
-	renderScheduleRedserved: ($target, model = {}) ->
+	renderScheduleRoom: ($target) ->
+		$target
+			.removeClass 'schedule-reserved'
+			.addClass 'js-add-schedule'
+			.removeAttr 'data-id'
+
+		return $target.html """
+			<a href="#">Agendar horário</a>
+		"""
+
+
+	renderScheduleReserved: ($target, model = {}) ->
 		$target
 			.removeClass 'js-add-schedule'
 			.addClass 'schedule-reserved'
+			.attr 'data-id', model.id
 
 		return $target.html """
 			<img src="#{model.user.profile_image}" class="schedule-avatar img-circle" height="30">
@@ -167,7 +198,7 @@ class App.ScheduleTable extends ComponentBase
 		scheduleModel.done (json) =>
 			console.log @collections.schedules = json
 			for item in json
-				@renderScheduleRedserved ($ "td[data-starts_at='#{item.starts_at}']"), item
+				@renderScheduleReserved ($ "td[data-starts_at='#{item.starts_at}']"), item
 
 		scheduleModel.error (json) =>
 			console.log json

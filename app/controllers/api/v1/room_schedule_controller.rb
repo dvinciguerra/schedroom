@@ -22,6 +22,7 @@ class API::V1::RoomScheduleController < API::V1::BaseController
   def destroy
     if @schedule.user_id != current_user.id
       render json: { message: 'operation_not_allowed' }, status: 405
+			return
     end
 
     if @schedule.destroy
