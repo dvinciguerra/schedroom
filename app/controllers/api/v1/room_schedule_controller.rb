@@ -32,6 +32,7 @@ class API::V1::RoomScheduleController < API::V1::BaseController
     end
   end
 
+
   private
 
   def set_schedule

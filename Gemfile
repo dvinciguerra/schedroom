@@ -46,6 +46,7 @@ group :development, :test do
   gem 'factory_girl_rails'
 	gem 'faker'
 	gem 'timecop'
+	gem 'simplecov'
 end
 
 group :development do
