@@ -24,7 +24,7 @@ gem 'bcrypt'
 gem 'knock'
 
 # assets & media
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'sprockets-rails'
