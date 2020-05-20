@@ -9,7 +9,7 @@ end
 ruby '2.4.1'
 
 # web & server
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.6'
 gem 'puma', '~> 3.7'
 
 # database & orm
