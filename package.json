@@ -1,18 +1,16 @@
 {
-  "name": "schedroom",
+  "name": "Schedroom",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.0.2",
-    "babel-preset-react": "^6.24.1",
-    "coffeescript": "1.12.7",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "webpacker-react": "^0.3.2"
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.2.2",
+    "stimulus": "^1.1.1",
+    "turbolinks": "^5.2.0"
   },
+  "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^2.9.3"
+    "webpack-dev-server": "^3.11.0"
   }
 }
